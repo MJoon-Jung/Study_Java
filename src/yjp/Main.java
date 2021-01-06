@@ -28,18 +28,18 @@ public class Main {
 //		Circle c2 = new Circle();
 //		System.out.println(c2);
 		
-		Rectangle r = new Rectangle();
-		Rectangle r2 = new Rectangle(20,30);
-		
-		System.out.println(r);
-		System.out.println(r2);
-		if(r.isSame(r2)) {
-			System.out.println("r == r2");
-		}
-		else {
-			System.out.println("r != r2");
-		}
-		
+//		Rectangle r = new Rectangle();
+//		Rectangle r2 = new Rectangle(20,30);
+//		
+//		System.out.println(r);
+//		System.out.println(r2);
+//		if(r.isSame(r2)) {
+//			System.out.println("r == r2");
+//		}
+//		else {
+//			System.out.println("r != r2");
+//		}
+		int sum = new Math().add(1,2);
 		
 		
 		
