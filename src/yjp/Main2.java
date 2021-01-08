@@ -11,9 +11,13 @@ public class Main2 {
 //		eagle.fly();
 //		eagle.eat();
 //		lion.roar();
+//		re.draw();
+//		System.out.println("¸éÀû ³ĞÀÌ : " + re.area());
 		Rectangle2 re = new Rectangle2(10,10,100,200);
-		re.draw();
-		System.out.println("¸éÀû ³ĞÀÌ : " + re.area());
+		ColorRectangle c = new ColorRectangle(re,"blue");
+		System.out.println(c);
+		ColorRectangle c2 = new ColorRectangle(new Rectangle2(),"blue");
+		System.out.println(c2);
 	}
 
 }
