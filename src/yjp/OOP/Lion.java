@@ -1,4 +1,4 @@
-package yjp;
+package yjp.OOP;
 
 public class Lion extends Animal{
 	int legs = 4;

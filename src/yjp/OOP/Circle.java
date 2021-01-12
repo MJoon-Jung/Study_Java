@@ -1,4 +1,4 @@
-package yjp;
+package yjp.OOP;
 
 public class Circle {
 	private Point center;

@@ -1,4 +1,4 @@
-package yjp;
+package yjp.OOP;
 
 public class Rectangle2 extends Shape{
 	int width;

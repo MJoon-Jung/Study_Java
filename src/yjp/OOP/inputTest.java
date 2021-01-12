@@ -1,4 +1,4 @@
-package yjp;
+package yjp.OOP;
 
 import java.util.Scanner;
 
