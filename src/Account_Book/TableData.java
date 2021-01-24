@@ -9,10 +9,16 @@ import java.util.Scanner;
 import javax.swing.table.AbstractTableModel;
 
 public class TableData extends AbstractTableModel{
-	private List<Transaction>list;
-	public TableData() {
+	private List<Transaction> list;
+	private String[] headers = {"Name","Type","Amount","Note"};
+	public TableData(){
 		updateList();
 	}
+	
+	public String getColumnName(int cell){
+		return headers[cell];
+	}
+	
 	public void updateList(){
 		list = new ArrayList<>();
 		try{			
@@ -31,35 +37,37 @@ public class TableData extends AbstractTableModel{
 					list.add(t);
 				}
 			}
-				
+		    sc.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	@Override
-	public int getRowCount() {
+	public int getColumnCount() {
+		// TODO Auto-generated method stub
 		return 4;
 	}
 
-	@Override
-	public int getColumnCount() {
+	public int getRowCount() {
+		// TODO Auto-generated method stub
 		return list.size();
 	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		switch(columnIndex) {
-		case 0:
-			return list.get(rowIndex).getName();
-		case 1:
-			return list.get(rowIndex).getType();
-		case 2:
-			return list.get(rowIndex).getAmount();
-		case 3:
-			return list.get(rowIndex).getNote();
+	public Object getValueAt(int row, int cell) {
+		switch(cell){
+			case 0:
+				return list.get(row).getName();
+			case 1:
+				return list.get(row).getType();
+			case 2:
+				return list.get(row).getAmount();
+			case 3:
+				return list.get(row).getNote();
 		}
 		return null;
 	}
-	
+
+	public void refresh(){
+		updateList();
+		super.fireTableDataChanged();
+	}
 }

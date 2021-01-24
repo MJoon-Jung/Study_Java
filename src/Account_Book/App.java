@@ -1,10 +1,13 @@
 package Account_Book;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,9 +22,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableRowSorter;
 
 public class App {
 	private final String ID = "gjgjajaj";
@@ -159,6 +167,8 @@ public class App {
 					noteInput.setText("");
 					
 					JOptionPane.showMessageDialog(null,"Data saved Successfully");
+					fw.close();
+					td.refresh();
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, "There was an error while writing the data");
 				}
@@ -189,7 +199,7 @@ public class App {
 		sumPanel.add(lblNewLabel_1);
 		
 		searchInput = new JTextField();
-		searchInput.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		searchInput.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		searchInput.setBounds(492, 75, 1002, 51);
 		sumPanel.add(searchInput);
 		searchInput.setColumns(10);
@@ -197,11 +207,29 @@ public class App {
 		JPanel tp = new JPanel();
 		tp.setBounds(387, 182, 1109, 386);
 		sumPanel.add(tp);
-		tp.setLayout(null);
 		
-		table = new JTable();
-		table.setBounds(12, 10, 1085, 366);
-		tp.add(table);
+		table = new JTable(td);
+		table.setBounds(387, 182, 1085, 356);
+		table.setRowHeight(30);
+		table.setFont(new Font("Sansserif",Font.BOLD,15));
+		table.setPreferredScrollableViewportSize(new Dimension(1085,346));
+		tp.add(new JScrollPane(table));
+		tp.setOpaque(false);
+		
+		JTableHeader header = table.getTableHeader();
+		header.setBackground(new Color(92,179,255));
+		header.setForeground(new Color(255,255,255));
+		header.setFont(new Font("Sansserif",Font.BOLD,15));
+		
+		searchInput.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				String search = searchInput.getText();
+				TableRowSorter<AbstractTableModel> trs = new TableRowSorter<>(td);
+				table.setRowSorter(trs);
+				trs.setRowFilter(RowFilter.regexFilter(search));
+			}
+		});
+		
 		sumPanel.setVisible(false);
 		tranPanel.setVisible(false);
 		
