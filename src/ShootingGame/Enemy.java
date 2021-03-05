@@ -1,6 +1,7 @@
 package ShootingGame;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -14,6 +15,8 @@ public class Enemy {
 	public Enemy(int x,int y) {
 		this.x = x;
 		this.y = y;
+		
+		
 	}
 	public void move() {
 		this.x -= 5;
