@@ -1,4 +1,4 @@
-package submitWDJ;
+package submit_wdj;
 
 public class GradientPanel {
 	
