@@ -1,5 +1,6 @@
 package submit_wdj;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,10 +15,12 @@ import javax.swing.JTextField;
 public class Quadratic_function_graph extends JPanel implements ActionListener{
 	JTextField a, b, c;
 	double A, B, C;
+	int SCREEN_WIDTH = 800;
+	int SCREEN_HEIGHT = 800;
 	public Quadratic_function_graph() {
 		a = new JTextField("1.0", 10);
-		b = new JTextField("-5.0", 10);
-		c = new JTextField("6.0", 10);
+		b = new JTextField("0", 10);
+		c = new JTextField("0", 10);
 		
 		add(a);
 		add(b);
@@ -31,16 +34,29 @@ public class Quadratic_function_graph extends JPanel implements ActionListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawLine(0, 200, 400, 200);
-		g2d.drawLine(200, 0, 200, 400);
-		g2d.setPaint(Color.red);
+		g2d.drawLine(0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+		g2d.drawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+
+		g2d.setPaint(Color.black);
+		for(int i = SCREEN_HEIGHT; i >= 0; i -= 5) {
+			g2d.drawLine(SCREEN_WIDTH / 2 -1, i , SCREEN_WIDTH / 2 + 1 , i);
+			g2d.drawLine(i, SCREEN_HEIGHT / 2 - 1, i, SCREEN_HEIGHT / 2 + 1);
+		}
+		g2d.setStroke(new BasicStroke(3));
 		
-		for(int i = -100; i < 100; i++) {
+//		for(int i = -SCREEN_WIDTH/2; i <= SCREEN_WIDTH/2; i+= 5) {
+//			g2d.setPaint(Color.red);
+//			int x = SCREEN_WIDTH / 2 + i;
+//			int y = SCREEN_HEIGHT / 2 - (int)(A * x * x + B * x + C);
+//			g2d.fillOval(SCREEN_WIDTH / 2 + x - 2, SCREEN_HEIGHT / 2 - y - 2, 2, 4);
+//			
+//		}
+		g2d.setColor(Color.red);
+		for(int i = -100; i <= 100; i++) {
 			int x = i;
 			int y = (int) (A * x*x +B * x + C);
-			g2d.fillOval(200+x-2, 200 - (y-2), 4, 4);
+			g2d.fillOval(SCREEN_WIDTH / 2 + x - 2, SCREEN_HEIGHT / 2 - y - 2, 2, 4);
 		}
-		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -51,11 +67,11 @@ public class Quadratic_function_graph extends JPanel implements ActionListener{
 	}
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		
-		frame.add(new Quadratic_function_graph());
+		Quadratic_function_graph function = new Quadratic_function_graph();
+		frame.add(function);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setSize(500,400);
+		frame.setLocation(100,0);
+		frame.setSize(function.SCREEN_WIDTH,function.SCREEN_HEIGHT);
 		frame.setVisible(true);
 	}
 
