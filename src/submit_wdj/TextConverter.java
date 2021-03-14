@@ -16,7 +16,6 @@ public class TextConverter extends JFrame implements ActionListener{
 	private JTextArea textIn;
 	private JTextArea textOut;
 	
-	
 	public TextConverter() {
 		textIn = new JTextArea(20,30);
 		textOut = new JTextArea(20,30);
@@ -30,7 +29,9 @@ public class TextConverter extends JFrame implements ActionListener{
 		txtPanel.add(textOut);
 		
 		convertBtn = new JButton("convert");
+		convertBtn.addActionListener(this);
 		cancelBtn = new JButton("cancel");
+		cancelBtn.addActionListener(this);
 		
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(convertBtn);
@@ -51,11 +52,20 @@ public class TextConverter extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getSource() == convertBtn) {
+			String s = textIn.getText();
+			String a = s.replace(" ", "");
+			if(!a.equals("")) {				
+				ApiExamTranslateNmt papago = new ApiExamTranslateNmt();
+				papago.setTxt(s);
+				textOut.setText(papago.toString());
+			}
+		}else if(e.getSource() == cancelBtn) {
+			textIn.setText("");
+			textOut.setText("");
+		}
 	}
 	public static void main(String[] args) {
 		new TextConverter();
 	}
-
 }
