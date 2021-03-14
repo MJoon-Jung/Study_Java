@@ -102,7 +102,7 @@ public class TextConverter extends JFrame implements ActionListener, KeyListener
 		if(!a.equals("")) {
 			s.replace("\n", "<br>");
 			papago.setTxt(s);
-			textOut.setText(papago.toString());.
+			textOut.setText(papago.toString());
 		}
 	}
 	@Override
