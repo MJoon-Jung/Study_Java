@@ -1,5 +1,6 @@
 package submit_wdj;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class TextConverter extends JFrame implements ActionListener, KeyListener{
 	private JButton convertBtn;
@@ -35,6 +37,9 @@ public class TextConverter extends JFrame implements ActionListener, KeyListener
 		textIn.setBounds(27,72,350,390);
 		textIn.setFont(new Font("굴림", Font.PLAIN, 20));
 		textIn.addKeyListener(this);
+		JScrollPane scroll1 = new JScrollPane(textIn);
+		scroll1.setPreferredSize(new Dimension(350,390));
+		scroll1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		textOut = new JTextArea(20,30);
 		textOut.setBounds(406, 72, 350, 390);
@@ -68,8 +73,9 @@ public class TextConverter extends JFrame implements ActionListener, KeyListener
 //		mainPanel.add(panel);
 //		mainPanel.add(btnPanel);
 //		this.add(mainPanel);
-		
+		this.add(scroll1);
 		this.add(panel);
+		this.pack();
 		this.setSize(800,600);
 		this.setTitle("papago");
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -79,20 +85,12 @@ public class TextConverter extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == convertBtn) {
-			String s = textIn.getText();
-			String a = s.replace(" ", "");
-			a = a.replace("\n", "");
-			if(!a.equals("")) {				
-				papago.setTxt(s);
-				textOut.setText(papago.toString());
-			}
+			//textIn 에서 받아온 텍스트를 번역해서 textOut에 올린다.
+			textOut.setText(papago.Convert(textIn.getText()));
 		}else if(e.getSource() == cancelBtn) {
 			textIn.setText("");
 			textOut.setText("");
 		}
-	}
-	public static void main(String[] args) {
-		new TextConverter();
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -100,10 +98,11 @@ public class TextConverter extends JFrame implements ActionListener, KeyListener
 		String a = s.replace(" ", "");
 		a = a.replace("\n", "");
 		if(!a.equals("")) {
-			s.replace("\n", "<br>");
-			papago.setTxt(s);
-			textOut.setText(papago.toString());
+			textOut.setText(papago.Convert(textIn.getText()));
 		}
+	}
+	public static void main(String[] args) {
+		new TextConverter();
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {}

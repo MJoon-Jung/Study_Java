@@ -13,21 +13,20 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
 // 네이버 기계번역 (Papago SMT) API 예제
 public class PapagoApi {
-	private String txt;
-
-//	public static void main(String[] args) {
-//		PapagoApi papago = new PapagoApi();
-//		papago.setTxt("안녕하세요 재밌나요?");
-//		System.out.println(papago);
-//	}
-	public String toString() {
-        String clientId = "9AD54J5a2QVgWyge0KOr";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "iUk_DqTcPd";//애플리케이션 클라이언트 시크릿값";
-
-        String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
+	private static String clientId = Env.clientId;//애플리케이션 클라이언트 아이디값";
+	private static String clientSecret = Env.clientSecret;//애플리케이션 클라이언트 시크릿값";
+	private static String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
+	
+    public String Convert(String txt) {
         String text;
+        
         try {
             text = URLEncoder.encode(txt, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -38,15 +37,22 @@ public class PapagoApi {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
-        String responseBody = post(apiURL, requestHeaders, text);
-
-        String [] ar = responseBody.split("\"translatedText\":");
-        String [] ans = ar[1].split(",");
-        ans[0] = ans[0].replace("\"", "");
+        String responseBody = post(apiURL, requestHeaders, text);;
         
-        return ans[0];
-	}
-    private static String post(String apiUrl, Map<String, String> requestHeaders, String text){
+        String translate = "";
+        try {
+        	JSONParser jsonParser = new JSONParser();
+        	JSONObject jObject = (JSONObject) jsonParser.parse(responseBody);
+        	translate = (String) ((JSONObject) ((JSONObject) jObject.get("message")).get("result")).get("translatedText");
+        	
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return translate;
+    }
+
+	private static String post(String apiUrl, Map<String, String> requestHeaders, String text){
         HttpURLConnection con = connect(apiUrl);
         String postParams = "source=ko&target=en&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
         try {
@@ -101,7 +107,4 @@ public class PapagoApi {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
     }
-	public void setTxt(String txt) {
-		this.txt = txt;
-	}
 }
