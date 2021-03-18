@@ -11,22 +11,25 @@ public class Ball {
 	int width = image.getWidth(null);
 	int height = image.getHeight(null);
 	
-	Rectangle rect;
+	int speed = 3;
 	
 	public Ball(int x, int y) {
 		this.x = x;
 		this.y = y;
-		rect = new Rectangle(x,y,width,height);
 	}
 	public void move(int dir) {
-		if(dir == 0) {
-			
-		}else if(dir == 1) {
-			
+		if(dir == 1) {
+			this.x += speed;
+			this.y -= speed;
 		}else if(dir == 2) {
-			
+			this.x -= speed;
+			this.y -= speed;
 		}else if(dir == 3) {
-			
+			this.x -= speed;
+			this.y += speed;
+		}else if(dir == 4) {
+			this.x += speed;
+			this.y += speed;
 		}
 	}
 }
