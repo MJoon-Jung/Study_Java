@@ -1,4 +1,4 @@
-package yjp.GUI;
+package submit_wdj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
