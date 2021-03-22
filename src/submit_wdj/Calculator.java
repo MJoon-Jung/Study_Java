@@ -1,5 +1,6 @@
 package submit_wdj;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -32,12 +33,13 @@ public class Calculator extends JFrame{
 	private int count = 0;
 	
 	public Calculator() {
-		this.setLayout(new GridLayout(2,1));
+//		this.setLayout(new GridLayout(2,1));
+		
 		lp = new labelPanel();
 		bp = new ButtonPanel();
 		
-		this.add(lp);
-		this.add(bp);
+		this.add(lp, BorderLayout.NORTH);
+		this.add(bp, BorderLayout.CENTER);
 		this.setTitle("Calculator");
 		this.setResizable(false);
 		this.pack();
@@ -49,7 +51,7 @@ public class Calculator extends JFrame{
 	class labelPanel extends JPanel{
 		
 		public labelPanel() {
-			this.setLayout(new GridLayout(3,1,5,5));
+			this.setLayout(new GridLayout(2,1,20,20));
 			tl = new JLabel("");
 			tl.setFont(new Font("Arial", Font.BOLD, 30));
 			tl.setHorizontalAlignment(SwingConstants.RIGHT);
