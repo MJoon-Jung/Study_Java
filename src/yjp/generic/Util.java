@@ -29,8 +29,14 @@ public class Util {
 	   for(T val : list) sum += val.doubleValue();
 	   System.out.println(sum);
    }
-   // Q1) List <? extends Number> 와 List<Number> 차이
+   // Q1) List <? extends Number> 와 List<Number> 차이 
    public static void printSum2(List <? extends Number> list) {
+	   Double sum = 0.0;
+	   
+	   for(Number val : list) sum += val.doubleValue();
+	   System.out.println(sum);
+   }
+   public static void printSum3(List <Number> list) {
 	   Double sum = 0.0;
 	   
 	   for(Number val : list) sum += val.doubleValue();
