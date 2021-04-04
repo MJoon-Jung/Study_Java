@@ -46,14 +46,25 @@ public class LinkedList {
 		tmp.next = null;
 		size--;
 	}
-//	public void add(int index, Integer value) {
-//		int cnt = 0;
-//		Node tmp = head;
-//		while(cnt != index) {
-//			tmp = tmp.next;
-//		}
-//		tmp
-//	}
+	public void add(int index, Integer value) {
+		if(index >= size) return;
+		int cnt = 0;
+		Node tmp = head;
+		while(cnt < index - 1) {
+			tmp = tmp.next;
+			cnt++;
+		}
+		Node node = new Node();
+		node.value = value;
+		if(index == 0) {
+			node.next = tmp;
+			head = node;
+		}else {
+			node.next = tmp.next;
+			tmp.next = node;
+		}
+		
+	}
 	public String toString() {
 		String result = "[ ";
 		Node tmp = head;
@@ -77,9 +88,8 @@ public class LinkedList {
 		LinkedList li = new LinkedList();
 		IntStream.rangeClosed(1, 10).forEach(i -> li.add(i));
 		System.out.println(li);
-		System.out.println(li.get(5));
-		li.remove();
-		li.remove();
+		li.add(0,22222);
+		li.add(8,11111);
 		System.out.println(li);
 	}
 }
