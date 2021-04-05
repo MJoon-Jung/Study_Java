@@ -21,14 +21,29 @@ public class MyArrayList<T> {
 		array[size++] = value;
 	}
 	public void add(int index, T value) {
-		Object[]tmpArray = new Object [size + 1];
+		if(index > size) return;
+		else if(index == size) add(value);
+		
+		Object[]tmpArray;
+		//capacity 가 다 찼을 때
+		if(size + 1 >= capacity) {
+			capacity = (int) (1.5 * capacity);			
+			tmpArray = new Object [capacity];
+		}
+		//안차서 한칸만 늘리면 될때
+		else {
+			tmpArray = new Object [size + 1];   
+		}
+		// index 전까지 tmp 에 넣음
 		for(int i = 0; i < index; i++) {
 			tmpArray[i] = array[i];
 		}
+		//index value 넣음
 		tmpArray[index] = value;
-		for(int i = index+1; i < tmpArray.length; i++) {
+		//array의 index 항부터 tmpArray에 넣음
+		for(int i = index+1; i < size+1; i++) {
 			tmpArray[i] = array[i-1];
-		}
+		}		
 		array = tmpArray;
 		size++;
 	}

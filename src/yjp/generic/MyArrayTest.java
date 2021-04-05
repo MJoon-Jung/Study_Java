@@ -8,16 +8,20 @@ public class MyArrayTest {
 		for(int i = 1; i < 11; i++) {
 			list.add(i);
 		}
-		list.add(2,1222);
-		list.add(8,222222);
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
+		
+		for(int i =0; i < list.size(); i++) {
+			System.out.print(list.get(i) + " , ");
 		}
-		System.out.println("---------------------------");
-		list.remove(0);
-		list.remove(Integer.valueOf(222222));
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
+		System.out.println();
+		
+		list.add(2, 2222);
+		
+		list.add(5, 555555);
+		
+		for(int i =0; i < list.size(); i++) {
+			System.out.print(list.get(i) + " , ");
 		}
+		System.out.println();
+		
 	}
 }
