@@ -63,7 +63,7 @@ public class LinkedList {
 			node.next = tmp.next;
 			tmp.next = node;
 		}
-		
+		size++;
 	}
 	public String toString() {
 		String result = "[ ";
@@ -90,6 +90,8 @@ public class LinkedList {
 		System.out.println(li);
 		li.add(0,22222);
 		li.add(8,11111);
+		System.out.println(li);
+		li.add(11,1010);
 		System.out.println(li);
 	}
 }
