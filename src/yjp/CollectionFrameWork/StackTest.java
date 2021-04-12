@@ -25,6 +25,8 @@ public class StackTest {
 		String [] ar = s.split(" ");
 		boolean isStart = false;
 		
+		
+		//안에 들어간 원소가 첫 글자가 숫자면 숫자스택 아니면 연산자 스택
 		for(int i = 0; i < ar.length; i++) {
 			char tmp = ar[i].charAt(0);
 			
@@ -34,8 +36,13 @@ public class StackTest {
 				stack2.push(ar[i]);
 			}
 		}
+		
+		
+		
 		int sum = Integer.MIN_VALUE;
 		
+		
+//		하나씩 빼내면서 계산한다.
 		while(!stack2.isEmpty()) {
 			if(!isStart) {
 				sum = Integer.valueOf(stack1.pop());
@@ -60,6 +67,7 @@ public class StackTest {
 				break;
 			}
 		}
+		//MIN_VALUE 으로 쉽게 나올수 없는 값을 선택해 실행 되어서 값이 변했는지 판단함.
 		if(sum != Integer.MIN_VALUE) {
 			System.out.println(sum);
 		}else {
@@ -67,6 +75,7 @@ public class StackTest {
 		}
 		
 	}
+	// () 괄호의 올바른 식인지 판단
 	public static void test3(String s) {
 		Stack<Character> stack = new Stack<>();
 		s.replace(" ", "");
@@ -133,6 +142,7 @@ public class StackTest {
 			System.out.println(stack.pop());
 		}
 	}
+	//StringTokenizer 
 	public static void test4() {
 		String str = "Apple, Grape, Banana, Melon, Strawberry";
 		StringTokenizer st = new StringTokenizer(str, ", ");
