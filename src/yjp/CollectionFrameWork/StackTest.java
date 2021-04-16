@@ -1,5 +1,8 @@
 package yjp.CollectionFrameWork;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.stream.IntStream;
@@ -15,8 +18,27 @@ public class StackTest {
 //		test3(s2);
 //		test3(s3);
 //		test4();
-		test6("3 + 4 * 2");
-		test6("3 + 4");
+//		test5();
+//		test6("3 + 4 * 2");
+//		test6("3 + 4");
+//		test10();
+		
+	}
+	public static void test5() {
+		Queue<Integer> queue = new PriorityQueue<>();
+		
+		for(int i = 0; i < 10; i++) {
+			int r = (int)(Math.random() * 100 + 1);
+			System.out.print(r + " ");
+			queue.offer(r);
+		}
+		System.out.println();
+		System.out.println(queue);
+		
+		while(!queue.isEmpty()) {
+			System.out.println(queue.poll());
+		}
+		
 	}
 	// 후위 표기법
 	public static void test6(String s) {
@@ -149,5 +171,53 @@ public class StackTest {
 		while(st.hasMoreTokens()) {
 			System.out.println(st.nextToken());
 		}
+	}
+	private static void test10() {
+//		Queue<Task> q = new PriorityQueue<>();
+		Queue<Task> q = new PriorityQueue<>(
+					(o1,o2) -> o1.priority - o2.priority
+				);
+		
+		q.add(new Task(0, "직업1"));
+		q.add(new Task(1,"직업5"));
+		q.add(new Task(2,"직업2"));
+		q.add(new Task(3,"직업11"));
+		q.add(new Task(4,"직업52"));
+		q.add(new Task(5,"직업4212"));
+		q.add(new Task(6,"직업42"));
+		q.add(new Task(7,"직업9"));
+		
+		while(!q.isEmpty()) {
+			System.out.println(q.poll());
+		}
+	}
+}
+class Task implements Comparable<Task>{
+	int priority;
+	String desc;
+	
+	public Task(int priority, String desc) {
+		this.priority = priority;
+		this.desc = desc;
+	}
+	@Override
+	public String toString() {
+		return "Priority : " + priority + "  desc :  " + desc;
+	}
+	@Override
+	public int compareTo(Task o) {
+		if(this.desc.length() != o.desc.length()) {	
+			return this.desc.length() - o.desc.length();
+		}else {
+			for(int i = 0; i < desc.length(); i++) {
+				if(this.desc.charAt(i) != o.desc.charAt(i)) {
+					return compareString(this.desc.charAt(i), o.desc.charAt(i));
+				}
+			}
+		}
+		return 0;
+	}	
+	public int compareString(char a, char b) {
+		return a - b;
 	}
 }
