@@ -1,6 +1,7 @@
 package yjp.generic;
 
 public class Student implements Comparable<Student>{
+//public class Student {
 	private String name;
 	private int score;
 	
