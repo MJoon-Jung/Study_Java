@@ -1,4 +1,4 @@
-package yjp.CollectionFrameWork;
+package submit_wdj;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

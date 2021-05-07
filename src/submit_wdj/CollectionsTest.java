@@ -1,4 +1,4 @@
-package yjp.CollectionFrameWork;
+package submit_wdj;
 
 import java.util.ArrayList;
 import java.util.Arrays;
