@@ -3,8 +3,14 @@ package submit_wdj;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +22,7 @@ public class SimpleDictionary extends JPanel implements ActionListener{
 	private JTextField inputField;
 	private JButton btn_search;
 	private JButton btn_add;
+	private static final String DIC_FILE_NAME = "dict.props";
 	
 	private Map<String,String> dict = new HashMap<>();
 	
@@ -31,6 +38,22 @@ public class SimpleDictionary extends JPanel implements ActionListener{
 		this.add(btn_add);
 		
 		this.setPreferredSize(new Dimension(450,70));
+		buildDictionaryFromFile();
+	}
+
+	private void buildDictionaryFromFile() {
+		Properties props = new Properties();
+		try (FileReader fReader = new FileReader(DIC_FILE_NAME)){
+			props.load(fReader);	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Set<Object> set =  props.keySet();
+		for(Object key : set) {
+			Object value = props.get(key);
+			dict.put((String) key, (String) value);
+		}
 	}
 
 	public static void main(String[] args) {
@@ -55,16 +78,43 @@ public class SimpleDictionary extends JPanel implements ActionListener{
 		if(e.getSource() == btn_search) {
 			String value = dict.get(key);
 			if(value == null) {
-				JOptionPane.showMessageDialog(this, "not found", key,JOptionPane.ERROR_MESSAGE);
-			}else {				
+				char c = key.charAt(0);
+				if((c >= 65 && c <= 90) || (c >=97 && c<= 122)) {
+					String ans = getKey(key);
+					JOptionPane.showMessageDialog(this, ans, key, JOptionPane.INFORMATION_MESSAGE);
+				}else {					
+					JOptionPane.showMessageDialog(this, "not found", key,JOptionPane.ERROR_MESSAGE);
+				}
+			}else {			
 				JOptionPane.showMessageDialog(this, value, key, JOptionPane.INFORMATION_MESSAGE);
 			}
 		}else {
 			String en = JOptionPane.showInputDialog(this, "input English").trim();
 			if(en == null || en.length() == 0) return;
 			dict.put(key, en);
+			addWordToFile(key, en);
 			JOptionPane.showMessageDialog(this, "word save");
 		}
 		inputField.setText("");
+	}
+	private String getKey(String value) {
+        for (String key : dict.keySet()) {
+            if (value.equals(dict.get(key))) {
+                return key;
+            }
+        }
+        return null;
+	}
+
+	private void addWordToFile(String key, String value) {
+		try (FileWriter fwriter = new FileWriter(DIC_FILE_NAME, true)){
+			String str = key + "=" + value +"\n";
+			fwriter.write(str);
+			
+			fwriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
