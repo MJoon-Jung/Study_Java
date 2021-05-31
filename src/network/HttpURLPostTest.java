@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class HttpURLPostTest {
 	public static void main(String[] args) {
-		String site= "http://localhost:8080/board/test";
+		String site= "http://localhost:3001/";
 		
 		try {
 			URL url = new URL(site);
